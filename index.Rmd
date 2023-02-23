@@ -1,32 +1,215 @@
 ---
-title: "index"
+title: "Portfolio Computational Musicology"
 author: Annemarie Dekkers
 date: "2023-02-22"
 output: 
   flexdashboard::flex_dashboard:
     storyboard: true
+    theme: readable
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+remotes::install_github('jaburgoyne/compmus')
+library(knitr)
+library(tidyverse)
+library(spotifyr)
+library(dplyr)
+library(ggplot2)
+
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r include=FALSE}
+Sys.setenv(SPOTIFY_CLIENT_ID='6b1acd4b269945cc804fa9aa2832e575')
+Sys.setenv(SPOTIFY_CLIENT_SECRET='e82ad99fb1d14c79a1aaf9c1a89a4541')
+access_token <- get_spotify_access_token()
 ```
 
-## Including Plots
+```{r variables, include=FALSE}
+# playlist with songs from 2023
+now <- get_playlist_audio_features("", "0a1qCaoC6Zw4Ni5eV1PReR?si=e57ef18872744fde")
+now |>
+  summarise(
+    mean_acousticness = mean(acousticness),
+    sd_acousticness = sd(acousticness),
+    median_acousticness = median(acousticness),
+    mad_acousticness = mad(acousticness),
+    mean_danceability = mean(danceability),
+    sd_danceability = sd(danceability),
+    median_danceability = median(danceability),
+    mad_danceability = mad(danceability),
+    mean_energy = mean(energy),
+    sd_energy = sd(energy),
+    median_energy = median(energy),
+    mad_energy = mad(energy),
+    mean_instrumentalness = mean(instrumentalness),
+    sd_instrumentalness = sd(instrumentalness),
+    median_instrumentalness = median(instrumentalness),
+    mad_instrumentalness = mad(instrumentalness),
+    mean_liveness = mean(liveness),
+    sd_liveness = sd(liveness),
+    median_liveness = median(liveness),
+    mad_liveness = mad(liveness),
+    mean_loudness = mean(loudness),
+    sd_loudness = sd(loudness),
+    median_loudness = median(loudness),
+    mad_loudness = mad(loudness),
+    mean_speechiness = mean(speechiness),
+    sd_speechiness = sd(speechiness),
+    median_speechiness = median(speechiness),
+    mad_speechiness = mad(speechiness),
+    mean_tempo = mean(tempo),
+    sd_tempo = sd(tempo),
+    median_tempo = median(tempo),
+    mad_tempo = mad(tempo)
+  )
 
-You can also embed plots, for example:
+# playlist with songs from 1900s
+then <- get_playlist_audio_features("", "37i9dQZF1DXawmJ5HnBNtX?si=00449bb1fdce4780")
+then |>
+  summarise(
+    mean_acousticness = mean(acousticness),
+    sd_acousticness = sd(acousticness),
+    median_acousticness = median(acousticness),
+    mad_acousticness = mad(acousticness),
+    mean_danceability = mean(danceability),
+    sd_danceability = sd(danceability),
+    median_danceability = median(danceability),
+    mad_danceability = mad(danceability),
+    mean_energy = mean(energy),
+    sd_energy = sd(energy),
+    median_energy = median(energy),
+    mad_energy = mad(energy),
+    mean_instrumentalness = mean(instrumentalness),
+    sd_instrumentalness = sd(instrumentalness),
+    median_instrumentalness = median(instrumentalness),
+    mad_instrumentalness = mad(instrumentalness),
+    mean_liveness = mean(liveness),
+    sd_liveness = sd(liveness),
+    median_liveness = median(liveness),
+    mad_liveness = mad(liveness),
+    mean_loudness = mean(loudness),
+    sd_loudness = sd(loudness),
+    median_loudness = median(loudness),
+    mad_loudness = mad(loudness),
+    mean_speechiness = mean(speechiness),
+    sd_speechiness = sd(speechiness),
+    median_speechiness = median(speechiness),
+    mad_speechiness = mad(speechiness),
+    mean_tempo = mean(tempo),
+    sd_tempo = sd(tempo),
+    median_tempo = median(tempo),
+    mad_tempo = mad(tempo)
+  )
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+# combine data sets with labeling variable.
+songs <-
+  bind_rows(
+    now |> mutate(category = "Songs from 2023"),
+    then |> mutate(category = "Songs from 2000")
+  )
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+### Introduction
+
+#### Introduction
+
+The chosen corpus is a playlist with reggaeton music of the 2000s and a playlist of the reggaeton music of nowadays. This corpus was chosen because reggaeton is my favorite music genre, as soon as I hear the music all my nerves start dancing in my body. Also, if you compare how many Spanish songs were in the global top 50 playlist of the 2000s, it is very striking that it is much less than today.
+<br>
+<br>
+In the course of the nineties, the genre reggaeton has become very popular among the young people. in the early 21st century, this genre has also spread throughout the United States and a few years later it reached Europe and the rest of the world! One of the old famous songs that went viral Europa is 'Rakata from Wisin and Yandel, made in 2005. It is an interesting genre, because of the rhythm, danceability, lyrics and the cultural identity.
+<br>
+<br>
+The songs are most of the time made to dance, with a strong driving rhythm and a strong beat. The lyrics of the songs can be very catchy with a theme about crime, sex and love.
+<br>
+<br>
+For the comparison points of the corpus is that the amount of artists has been greatly increased. And because this genre has become so big, many artists have started collaborating with artists from other backgrounds and other genres.
+<br>
+<br>
+I expect that the sound and product quality of the music have improved these days, but the danceability will remain the same. I think it is an important feature of the genre, because the purpose of the music remains to make the people dance joyfully. What I am uncertain about is how this genre is going to evolve. Has it already reached its peak? Or is this the beginning of the peak?
+<br>
+<br>
+One of the most typical reggaeton songs from the past is "Gasolina" and from now on is "La Jumpa". It has both become a big hit and has a catchy beat and easy lyrics to sing along to. In contrast to "El Favor" and "Atrévete-te-te" in the past. One has elements of R&B and the other of salsa, making it a bit outside the traditional reggaeton.
+
+
+### Visualisation
+
+#### plot 1
+So for the corpus are two different playlists used. One playlist is from music from the 2000s and the other playlist is from the music of today (2023).
+<br>
+<br>
+Figure 1 shows two bar plots, comparing how the energy of the songs in the playlists differ from each other. Energy is a measure from 0.0 to 1.0 and provides a perceptual measure of intensity and activity. Energetic numbers are fast and loud. While low-energy songs are slow and peaceful.
+
+```{r plot1, echo=FALSE}
+# bar plots to compare a continuous variable (energy) across categories
+songs |>
+  ggplot(aes(x = energy)) +
+  geom_histogram(binwidth = 0.1, fill="steelblue") +
+  facet_wrap(~category) +
+  ggtitle("Compare the energy of both playlists")
+```
+
+Figure 2 shows two graphs, looking at the correlation between energy and valence of the songs in the playlist. The energy refers to the perceived intensity of a piece of music. A high energy stimulates to move and dance.
+<br>
+While the valence refers to the emotional quality of the music, this is also a measure from 0.0 to 1.0. A high valence is associated with positive feelings like happiness and a low valence is associated with more negative feelings like anger. As seen in the figure, the energy is very high in both years, but the valence nowadays is more spread from low to high. This may be because the music industry wants to make more statements with their songs.
+
+#### plot 2
+
+```{r plot2, echo=FALSE}
+# scatter plot to compare valence vs energy.
+songs |>                    # Start with awards.
+  mutate(
+    mode = ifelse(mode == 0, "Minor", "Major")
+  ) |>
+  ggplot(                     # Set up the plot.
+    aes(
+      x = valence,
+      y = energy,
+      size = loudness,
+      colour = mode
+    )
+  ) +
+  geom_point() +              # Scatter plot.
+  geom_rug(linewidth = 0.1) + # Add 'fringes' to show data distribution.
+  geom_text(aes(x= valence, y=energy,label=label),
+    data = tibble(label=c("slow", "energic"),
+        category = c("Songs from 2023", "Songs from 2000"),
+        valence = c(0.090, 0.123), energy = c(0.101, 0.967)),
+    colour = "black",         # Override colour (not mode here).
+    size = 3,                 # Override size (not loudness here).
+    hjust = "left",           # Align left side of label with the point.
+    vjust = "bottom",         # Align bottom of label with the point.
+    nudge_x = -0.05,          # Nudge the label slightly left.
+    nudge_y = 0.02            # Nudge the label slightly up.
+  ) +
+  facet_wrap(~ category) +    # Separate charts per playlist.
+  scale_x_continuous(         # Fine-tune the x axis.
+    limits = c(0, 1),
+    breaks = c(0, 0.50, 1),   # Use grid-lines for quadrants only.
+    minor_breaks = NULL       # Remove 'minor' grid-lines.
+  ) +
+  scale_y_continuous(         # Fine-tune the y axis in the same way.
+    limits = c(0, 1),
+    breaks = c(0, 0.50, 1),
+    minor_breaks = NULL
+  ) +
+  scale_colour_brewer(        # Use the Color Brewer to choose a palette.
+    type = "qual"            # Qualitative set.
+    #palette = "Paired"        # Name of the palette is 'Paired'.
+  ) +
+  scale_size_continuous(      # Fine-tune the sizes of each point.
+    trans = "exp",            # Use an exp transformation to emphasise loud.
+    guide = "none"            # Remove the legend for size.
+  ) +
+  theme_light() +             # Use a simpler theme.
+  labs(                       # Make the titles nice.
+    x = "Valence",
+    y = "Energy",
+    colour = "Mode"
+  ) +
+  ggtitle("Compare the valence vs the energy of the playlists")
+
+```
+
+### Conclusion / Discussion
