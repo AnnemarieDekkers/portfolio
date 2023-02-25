@@ -17,6 +17,9 @@ library(spotifyr)
 library(dplyr)
 library(ggplot2)
 
+remotes::install_github('jaburgoyne/compmus')
+library(compmus)
+
 ```
 
 ```{r include=FALSE}
@@ -108,6 +111,20 @@ songs <-
     now |> mutate(category = "Songs from 2023"),
     then |> mutate(category = "Songs from 2000")
   )
+
+# the 3 tools we need to make chromagram
+# audio: El favor 
+favor <-
+  get_tidy_audio_analysis("684EjRHwNsZQ9hCQxL4NYL?si=73deb841a4134163") |>
+  select(segments) |>
+  unnest(segments) |>
+  select(start, duration, pitches)
+# audio: atrevete
+atre <-
+  get_tidy_audio_analysis("1q8NdCAQ9QUjpYiqzdd3mv?si=f7e00bf18e8841b9") |>
+  select(segments) |>
+  unnest(segments) |>
+  select(start, duration, pitches)
 ```
 
 
@@ -150,11 +167,12 @@ songs |>
   ggtitle("Compare the energy of both playlists")
 ```
 
+#### plot 2
 Figure 2 shows two graphs, looking at the correlation between energy and valence of the songs in the playlist. The energy refers to the perceived intensity of a piece of music. A high energy stimulates to move and dance.
 <br>
 While the valence refers to the emotional quality of the music, this is also a measure from 0.0 to 1.0. A high valence is associated with positive feelings like happiness and a low valence is associated with more negative feelings like anger. As seen in the figure, the energy is very high in both years, but the valence nowadays is more spread from low to high. This may be because the music industry wants to make more statements with their songs.
 
-#### plot 2
+
 
 ```{r plot2, echo=FALSE}
 # scatter plot to compare valence vs energy.
@@ -210,6 +228,46 @@ songs |>                    # Start with awards.
   ) +
   ggtitle("Compare the valence vs the energy of the playlists")
 
+```
+
+#### Chromagram
+Two chromagrams one of the song 'Atrevete-te-te' from Calle13 and the otherone is 'El Favor'from Nicky Jam. 
+``` {r chroma old, fig.show="hold", out.width="50%", echo=FALSE}
+# plot of atrevete
+favor |>
+  mutate(pitches = map(pitches, compmus_normalise, "euclidean")) |>
+  compmus_gather_chroma() |> 
+  ggplot(
+    aes(
+      x = start + duration / 2,
+      width = duration,
+      y = pitch_class,
+      fill = value
+    )
+  ) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
+  theme_minimal() +
+  scale_fill_viridis_c() +
+  ggtitle("Chromagram from the song: Atrevete-Te-Te")
+
+# plot of el favor
+favor |>
+  mutate(pitches = map(pitches, compmus_normalise, "euclidean")) |>
+  compmus_gather_chroma() |> 
+  ggplot(
+    aes(
+      x = start + duration / 2,
+      width = duration,
+      y = pitch_class,
+      fill = value
+    )
+  ) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
+  theme_minimal() +
+  scale_fill_viridis_c() +
+  ggtitle("Chromagram from the song: El Favor")
 ```
 
 ### Conclusion / Discussion
