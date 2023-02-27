@@ -5,20 +5,21 @@ date: "2023-02-22"
 output: 
   flexdashboard::flex_dashboard:
     storyboard: true
-    theme: readable
+    orientation: columns
+    self_contained: false
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 remotes::install_github('jaburgoyne/compmus')
+
 library(knitr)
 library(tidyverse)
 library(spotifyr)
 library(dplyr)
 library(ggplot2)
-
-remotes::install_github('jaburgoyne/compmus')
 library(compmus)
+library(flexdashboard)
 
 ```
 
@@ -113,25 +114,22 @@ songs <-
   )
 
 # the 3 tools we need to make chromagram
-# audio: El favor 
+# audio: El favor (outlier now)
 favor <-
   get_tidy_audio_analysis("684EjRHwNsZQ9hCQxL4NYL?si=73deb841a4134163") |>
   select(segments) |>
   unnest(segments) |>
   select(start, duration, pitches)
-# audio: atrevete
+
+# audio: atrevete (outlier 2000)
 atre <-
   get_tidy_audio_analysis("1q8NdCAQ9QUjpYiqzdd3mv?si=f7e00bf18e8841b9") |>
   select(segments) |>
   unnest(segments) |>
   select(start, duration, pitches)
 ```
-
-
 ### Introduction
-
-#### Introduction
-
+<font style="font-size: 28px"><b>The evaluation of reggaeton music</b></font><br>
 The chosen corpus is a playlist with reggaeton music of the 2000s and a playlist of the reggaeton music of nowadays. This corpus was chosen because reggaeton is my favorite music genre, as soon as I hear the music all my nerves start dancing in my body. Also, if you compare how many Spanish songs were in the global top 50 playlist of the 2000s, it is very striking that it is much less than today.
 <br>
 <br>
@@ -140,17 +138,90 @@ In the course of the nineties, the genre reggaeton has become very popular among
 <br>
 The songs are most of the time made to dance, with a strong driving rhythm and a strong beat. The lyrics of the songs can be very catchy with a theme about crime, sex and love.
 <br>
-<br>
+
+<font style="font-size: 20px"><b>Comparison</b></font><br>
 For the comparison points of the corpus is that the amount of artists has been greatly increased. And because this genre has become so big, many artists have started collaborating with artists from other backgrounds and other genres.
 <br>
 <br>
-I expect that the sound and product quality of the music have improved these days, but the danceability will remain the same. I think it is an important feature of the genre, because the purpose of the music remains to make the people dance joyfully. What I am uncertain about is how this genre is going to evolve. Has it already reached its peak? Or is this the beginning of the peak?
+I expect that the sound and product quality of the music have improved these days, but the danceability will remain the same. I think it is an important feature of the genre, because the purpose of the reggaeton music is to get the people to dance joyfully on it. What I am uncertain about is how this genre is going to evolve. Has it already reached its peak? Or is this the beginning of the peak?
 <br>
 <br>
-One of the most typical reggaeton songs from the past is "Gasolina" and from now on is "La Jumpa". It has both become a big hit and has a catchy beat and easy lyrics to sing along to. In contrast to "El Favor" and "Atrévete-te-te" in the past. One has elements of R&B and the other of salsa, making it a bit outside the traditional reggaeton.
+One of the most typical reggaeton songs from the past is "Gasolina" from Daddy Yankee and from now on is "La Jumpa" from Bad Bunny with Arcangel. It has both become a big hit and has a catchy beat and (especially Gasolina) easy lyrics to sing along to. In contrast to the old song "Atrévete-te-te" and "El Favor" from now. One has more elements of salsa and the other more R&B, which makes it a bit outside the traditional reggaeton. Also called an outlier.
 
+---
 
-### Visualisation
+#### Songs
+For every year I collected oen favorite song.<br>
+2023: [<b>Shakira</b>](https://open.spotify.com/track/4nrPB8O7Y7wsOCJdgXkthe?si=79b6865208d448e1) by Shakira 
+<iframe src="https://open.spotify.com/embed/track/4nrPB8O7Y7wsOCJdgXkthe" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2022: [<b>La Jumpa</b>](https://open.spotify.com/track/5MxFWjuqQIsbNWbMdMdbli?si=e395dcaf431e4a93) by Bad Bunny and Arcangel  
+<iframe src="https://open.spotify.com/embed/track/5MxFWjuqQIsbNWbMdMdbli" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2021: [<b>Yonaguni</b>](https://open.spotify.com/track/2JPLbjOn0wPCngEot2STUS?si=9a0dfcbb279c4150) by Bad Bunny  
+<iframe src="https://open.spotify.com/embed/track/2JPLbjOn0wPCngEot2STUS" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2020: [<b>Safaera</b>](https://open.spotify.com/track/2DEZmgHKAvm41k4J3R2E9Y?si=be42e61c2bb94bc9) by Bad Bunny  
+<iframe src="https://open.spotify.com/embed/track/2DEZmgHKAvm41k4J3R2E9Y" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2019: [<b>Tusa</b>](https://open.spotify.com/track/7k4t7uLgtOxPwTpFmtJNTY?si=d22c191efde246cd) by Karol G and Nicki Minaj  
+<iframe src="https://open.spotify.com/embed/track/7k4t7uLgtOxPwTpFmtJNTY" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2018: [<b>X</b>](https://open.spotify.com/track/5YUyW9opqNsMSEzzecZih1?si=d6319b4a77424519) by Nicky Jam and J Balvin  
+<iframe src="https://open.spotify.com/embed/track/5YUyW9opqNsMSEzzecZih1" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2017: [<b>Mi gente</b>](https://open.spotify.com/track/03aENfSuuy3VS0sbgH7u1D?si=f99cda2305f443cc) by J Balvin and Willy William  
+<iframe src="https://open.spotify.com/embed/track/03aENfSuuy3VS0sbgH7u1D" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2016: [<b>Chantaje</b>](https://open.spotify.com/track/6mICuAdrwEjh6Y6lroV2Kg?si=f63c4ad717e54d67) by Shakira and Maluma  
+<iframe src="https://open.spotify.com/embed/track/6mICuAdrwEjh6Y6lroV2Kg" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2015: [<b>El Perdon</b>](https://open.spotify.com/track/7qCAVkHWZkF44OzOUKf8Cr?si=55296070f55b4375) by Nicky Jam and Enrique Iglesias  
+<iframe src="https://open.spotify.com/embed/track/7qCAVkHWZkF44OzOUKf8Cr" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2014: [<b>Bailando</b>](https://open.spotify.com/track/5M830cD7MNeiiwIGHzH9TV?si=6fe6d0234c874aa3) by Enrique Iglesias and Gente de Zona  
+<iframe src="https://open.spotify.com/embed/track/5M830cD7MNeiiwIGHzH9TV" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2013: [<b>6 AM</b>](https://open.spotify.com/track/3uvypVUsiIr1B0BccIcsEh?si=2d61229097074c65) by J Balvin and Farruko  
+<iframe src="https://open.spotify.com/embed/track/3uvypVUsiIr1B0BccIcsEh" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2012: [<b>Te pintaron pajaritos</b>](https://open.spotify.com/track/4jY5SnGbpH6FdGCqVbhOD4?si=c5040afccf3e4816) by Yandar and Yostin  
+<iframe src="https://open.spotify.com/embed/track/4jY5SnGbpH6FdGCqVbhOD4" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2011: [<b>Lovumba</b>](https://open.spotify.com/track/6oyl7ELfrMqXLhGmIjXY9R?si=e7e42e42c76e4ea4) by Daddy Yanke  
+<iframe src="https://open.spotify.com/embed/track/6oyl7ELfrMqXLhGmIjXY9R" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2010: [<b>Danza Kuduro</b>](https://open.spotify.com/track/6DXLO8LndZMVOHM0wNbpzg?si=32d59539e0a74683) by Don Omar and Lucenzo  
+<iframe src="https://open.spotify.com/embed/track/6DXLO8LndZMVOHM0wNbpzg" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2009: [<b>La Revolucion</b>](https://open.spotify.com/track/74Rj0CRTpwmr1n1HTjj3ly?si=48165ad824484643) by Wisin and Yandel  
+<iframe src="https://open.spotify.com/embed/track/74Rj0CRTpwmr1n1HTjj3ly" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2008: [<b>Perdóname</b>](https://open.spotify.com/track/1OYZbxODr6TMlaT2PRi6Wi?si=c4e420309f204642) by La Factoria and Eddy Lover  
+<iframe src="https://open.spotify.com/embed/track/1OYZbxODr6TMlaT2PRi6Wi" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2007: [<b>Un Poco Loca</b>](https://open.spotify.com/track/5A2fkyeIbRqwXGkIdadL5q?si=a1d16bef40ac4fee) by Jowell & Randy  
+<iframe src="https://open.spotify.com/embed/track/5A2fkyeIbRqwXGkIdadL5q" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2006: [<b>Noche De Entierro</b>](https://open.spotify.com/track/6ksWMnPcHNyNoNf3y1BQCO?si=9ddd882511cf467b) by Tonny Tun Tun and Daddy Yankee  
+<iframe src="https://open.spotify.com/embed/track/6ksWMnPcHNyNoNf3y1BQCO" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2005: [<b>Ella Y Yo</b>](https://open.spotify.com/track/6G4U9avyBNEfP0fAIduev3?si=781a2ea47be4468b) by Aventura and Don Omar  
+<iframe src="https://open.spotify.com/embed/track/6G4U9avyBNEfP0fAIduev3" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2004: [<b>Gasolina</b>](https://open.spotify.com/track/228BxWXUYQPJrJYHDLOHkj?si=5b119d99a93d4deb) by Daddy Yankee  
+<iframe src="https://open.spotify.com/embed/track/228BxWXUYQPJrJYHDLOHkj" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2003: [<b>Dale Don Dale</b>](https://open.spotify.com/track/1PZrHbJjt5t7dP9OGRxcD0?si=3ab8fa13a37e4443) by Don Omar  
+<iframe src="https://open.spotify.com/embed/track/1PZrHbJjt5t7dP9OGRxcD0" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2002: [<b>Guatauba</b>](https://open.spotify.com/track/0xJFWROBNTBL4sKEuA5pm6?si=42b5de45244f411f) by Plan B  
+<iframe src="https://open.spotify.com/embed/track/0xJFWROBNTBL4sKEuA5pm6" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2001: [<b>En La Cama</b>](https://open.spotify.com/track/2Eg6dOam7cAe5turf2bnCg?si=b318ebd3a8c943e7) by Nicky Jam and Daddy Yankee  
+<iframe src="https://open.spotify.com/embed/track/2Eg6dOam7cAe5turf2bnCg" width="200" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+### Visualizations
 
 #### plot 1
 So for the corpus are two different playlists used. One playlist is from music from the 2000s and the other playlist is from the music of today (2023).
@@ -170,8 +241,7 @@ songs |>
 #### plot 2
 Figure 2 shows two graphs, looking at the correlation between energy and valence of the songs in the playlist. The energy refers to the perceived intensity of a piece of music. A high energy stimulates to move and dance.
 <br>
-While the valence refers to the emotional quality of the music, this is also a measure from 0.0 to 1.0. A high valence is associated with positive feelings like happiness and a low valence is associated with more negative feelings like anger. As seen in the figure, the energy is very high in both years, but the valence nowadays is more spread from low to high. This may be because the music industry wants to make more statements with their songs.
-
+While the valence refers to the emotional quality of the music, this is also a measure from 0.0 to 1.0. A high valence is associated with positive feelings like happiness and a low valence is associated with more negative feelings like anger. As seen in the figure, the energy is very high in both years, but the valence nowadays is more spread from low to high. This may be because the music industry wants to make more statements with their songs. Because with music, artists achieve a lot of audience attention, which allows them to express their social/political issues.
 
 
 ```{r plot2, echo=FALSE}
@@ -231,11 +301,16 @@ songs |>                    # Start with awards.
 ```
 
 #### Chromagram
-Two chromagrams one of the song 'Atrevete-te-te' from Calle13 and the otherone is 'El Favor'from Nicky Jam. 
+A chromagrom represents time versus pitch of the notes. These two chromagroms represent the energy content of the song "Atrevete-te-te" by Calle13 and the song "El Favor" by Nicky Jam. Calle13's song is from the early 2000s and Nicky Jam's song is a bit newer and is from 2019. These two are two outliers of both playlists, because it has not only elements of traditional reggeaton, but also of the genre salsa and R&B.
+<br>
+<br> In the code is a chroma vector is used, this is to represent the harmonic content of the music features. The norm that is used is for those graphs is the chebyshev norm, because it is less sensitive to the outliers than the other normalization vectors such as manhattan norm or euclidean norm. Therefore, it only takes the maximum difference between the similarities of elements in the song. The higher the magnitude of a chromagram, the higher the energy level of the song.
+<br>
+<br>
+
 ``` {r chroma old, fig.show="hold", out.width="50%", echo=FALSE}
 # plot of atrevete
-favor |>
-  mutate(pitches = map(pitches, compmus_normalise, "euclidean")) |>
+atre |>
+  mutate(pitches = map(pitches, compmus_normalise, "chebyshev")) |>
   compmus_gather_chroma() |> 
   ggplot(
     aes(
@@ -253,7 +328,7 @@ favor |>
 
 # plot of el favor
 favor |>
-  mutate(pitches = map(pitches, compmus_normalise, "euclidean")) |>
+  mutate(pitches = map(pitches, compmus_normalise, "chebyshev")) |>
   compmus_gather_chroma() |> 
   ggplot(
     aes(
@@ -271,3 +346,4 @@ favor |>
 ```
 
 ### Conclusion / Discussion
+Text for Conclusion
