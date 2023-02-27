@@ -6,7 +6,6 @@ output:
   flexdashboard::flex_dashboard:
     storyboard: true
     orientation: columns
-    self_contained: false
 ---
 
 ```{r setup, include=FALSE}
