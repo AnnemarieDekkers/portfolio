@@ -150,7 +150,6 @@ migente <-
 ```
 
 ### Week 9
-
 #### Chroma-based and timbre-based
 The two matrices show the self-similarity of the famous hit song "Mi Gente" by J Balvin and Willy William, in terms of pitch and timbre. The matrices are summarized at bar level, with the x and y axes in seconds. Both matrices are important for understanding the structure of the song.  
 <br>
