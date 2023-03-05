@@ -153,7 +153,7 @@ migente <-
 #### Chroma-based and timbre-based
 The two matrices show the self-similarity of the famous hit song "Mi Gente" by J Balvin and Willy William, in terms of pitch and timbre. The matrices are summarized at bar level, with the x and y axes in seconds. Both matrices are important for understanding the structure of the song.  
 <br>
-The chroma matrix clearly shows the five times the chorus occurs, but it usually does not show the significant changes in texture during the three verses of the song. 
+The chroma matrix clearly shows the five times the chorus occurs, but it usually does not show the significant changes in texture during the three verses. 
 <br>
 The changes what you cannot easily see in a chroma matrix are more visible in a timbre matrix. It also shows the texture of the song. In this, you can see that it has a balanced song structure. The timbre has a climax that occurs about beginning halfway through the song and then only the chorus and beat that is repeated until the end of the song.
 
