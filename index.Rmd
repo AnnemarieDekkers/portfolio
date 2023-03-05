@@ -126,7 +126,67 @@ atre <-
   select(segments) |>
   unnest(segments) |>
   select(start, duration, pitches)
+
+# audio mi gente for the chroma and timbre 
+migente <-
+  get_tidy_audio_analysis("03aENfSuuy3VS0sbgH7u1D?si=28c7bb7a292847eb") |>
+  compmus_align(bars, segments) |>
+  select(bars) |>
+  unnest(bars) |>
+  mutate(
+    pitches =
+      map(segments,
+        compmus_summarise, pitches,
+        method = "acentre", norm = "manhattan"
+      )
+  ) |>
+  mutate(
+    timbre =
+      map(segments,
+        compmus_summarise, timbre,
+        method = "mean"
+      )
+  )
 ```
+
+### Week 9
+
+#### Chroma-based and timbre-based
+The two matrices show the self-similarity of the famous hit song "Mi Gente" by J Balvin and Willy William, in terms of pitch and timbre. The matrices are summarized at bar level, with the x and y axes in seconds. Both matrices are important for understanding the structure of the song.  
+<br>
+The chroma matrix clearly shows the five times the chorus occurs, but it usually does not show the significant changes in texture during the three verses. 
+<br>
+The changes what you cannot easily see in a chroma matrix are more visible in a timbre matrix. It also shows the texture of the song. In this, you can see that it has a balanced song structure. The timbre has a climax that occurs about beginning halfway through the song and then only the chorus and beat that is repeated until the end of the song.
+
+
+```{r migente1, echo=FALSE}
+bind_rows(
+  migente |> 
+    compmus_self_similarity(pitches, "aitchison") |> 
+    mutate(d = d / max(d), type = "Chroma"),
+  migente |> 
+    compmus_self_similarity(timbre, "euclidean") |> 
+    mutate(d = d / max(d), type = "Timbre")
+) |>
+  mutate() |> 
+  ggplot(
+    aes(
+      x = xstart + xduration / 2,
+      width = xduration,
+      y = ystart + yduration / 2,
+      height = yduration,
+      fill = d
+    )
+  ) +
+  geom_tile() +
+  coord_fixed() +
+  facet_wrap(~type) +
+  scale_fill_viridis_c(option = "E", guide = "none") +
+  theme_classic() + 
+  labs(x = "Time (s)", y = "Time (s)", fill = "Magnitude") +
+  ggtitle("Chroma vs. Timbre based for Mi Gente")
+```
+
 ### Introduction
 <font style="font-size: 28px"><b>The evaluation of reggaeton music</b></font><br>
 The chosen corpus is a playlist with reggaeton music of the 2000s and a playlist of the reggaeton music of nowadays. This corpus was chosen because reggaeton is my favorite music genre, as soon as I hear the music all my nerves start dancing in my body. Also, if you compare how many Spanish songs were in the global top 50 playlist of the 2000s, it is very striking that it is much less than today.
@@ -161,44 +221,64 @@ For every year I collected one favorite song.<br>
 <iframe src="https://open.spotify.com/embed/track/2JPLbjOn0wPCngEot2STUS" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2020: [<b>Safaera</b>](https://open.spotify.com/track/2DEZmgHKAvm41k4J3R2E9Y?si=be42e61c2bb94bc9) by Bad Bunny  
+<iframe src="https://open.spotify.com/embed/track/2DEZmgHKAvm41k4J3R2E9Y" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2019: [<b>Tusa</b>](https://open.spotify.com/track/7k4t7uLgtOxPwTpFmtJNTY?si=d22c191efde246cd) by Karol G and Nicki Minaj  
+<iframe src="https://open.spotify.com/embed/track/7k4t7uLgtOxPwTpFmtJNTY" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2018: [<b>X</b>](https://open.spotify.com/track/5YUyW9opqNsMSEzzecZih1?si=d6319b4a77424519) by Nicky Jam and J Balvin  
+<iframe src="https://open.spotify.com/embed/track/5YUyW9opqNsMSEzzecZih1" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2017: [<b>Mi gente</b>](https://open.spotify.com/track/03aENfSuuy3VS0sbgH7u1D?si=f99cda2305f443cc) by J Balvin and Willy William  
+<iframe src="https://open.spotify.com/embed/track/03aENfSuuy3VS0sbgH7u1D" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2016: [<b>Chantaje</b>](https://open.spotify.com/track/6mICuAdrwEjh6Y6lroV2Kg?si=f63c4ad717e54d67) by Shakira and Maluma  
+<iframe src="https://open.spotify.com/embed/track/6mICuAdrwEjh6Y6lroV2Kg" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2015: [<b>El Perdon</b>](https://open.spotify.com/track/7qCAVkHWZkF44OzOUKf8Cr?si=55296070f55b4375) by Nicky Jam and Enrique Iglesias  
+<iframe src="https://open.spotify.com/embed/track/7qCAVkHWZkF44OzOUKf8Cr" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2014: [<b>Bailando</b>](https://open.spotify.com/track/5M830cD7MNeiiwIGHzH9TV?si=6fe6d0234c874aa3) by Enrique Iglesias and Gente de Zona  
+<iframe src="https://open.spotify.com/embed/track/5M830cD7MNeiiwIGHzH9TV" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2013: [<b>6 AM</b>](https://open.spotify.com/track/3uvypVUsiIr1B0BccIcsEh?si=2d61229097074c65) by J Balvin and Farruko  
+<iframe src="https://open.spotify.com/embed/track/3uvypVUsiIr1B0BccIcsEh" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2012: [<b>Te pintaron pajaritos</b>](https://open.spotify.com/track/4jY5SnGbpH6FdGCqVbhOD4?si=c5040afccf3e4816) by Yandar and Yostin  
+<iframe src="https://open.spotify.com/embed/track/4jY5SnGbpH6FdGCqVbhOD4" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2011: [<b>Lovumba</b>](https://open.spotify.com/track/6oyl7ELfrMqXLhGmIjXY9R?si=e7e42e42c76e4ea4) by Daddy Yanke  
+<iframe src="https://open.spotify.com/embed/track/6oyl7ELfrMqXLhGmIjXY9R" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2010: [<b>Danza Kuduro</b>](https://open.spotify.com/track/6DXLO8LndZMVOHM0wNbpzg?si=32d59539e0a74683) by Don Omar and Lucenzo  
+<iframe src="https://open.spotify.com/embed/track/6DXLO8LndZMVOHM0wNbpzg" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2009: [<b>La Revolucion</b>](https://open.spotify.com/track/74Rj0CRTpwmr1n1HTjj3ly?si=48165ad824484643) by Wisin and Yandel  
+<iframe src="https://open.spotify.com/embed/track/74Rj0CRTpwmr1n1HTjj3ly" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2008: [<b>Perdóname</b>](https://open.spotify.com/track/1OYZbxODr6TMlaT2PRi6Wi?si=c4e420309f204642) by La Factoria and Eddy Lover  
+<iframe src="https://open.spotify.com/embed/track/1OYZbxODr6TMlaT2PRi6Wi" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2007: [<b>Un Poco Loca</b>](https://open.spotify.com/track/5A2fkyeIbRqwXGkIdadL5q?si=a1d16bef40ac4fee) by Jowell & Randy  
+<iframe src="https://open.spotify.com/embed/track/5A2fkyeIbRqwXGkIdadL5q" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2006: [<b>Noche De Entierro</b>](https://open.spotify.com/track/6ksWMnPcHNyNoNf3y1BQCO?si=9ddd882511cf467b) by Tonny Tun Tun and Daddy Yankee  
+<iframe src="https://open.spotify.com/embed/track/6ksWMnPcHNyNoNf3y1BQCO" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2005: [<b>Ella Y Yo</b>](https://open.spotify.com/track/6G4U9avyBNEfP0fAIduev3?si=781a2ea47be4468b) by Aventura and Don Omar  
+<iframe src="https://open.spotify.com/embed/track/6G4U9avyBNEfP0fAIduev3" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2004: [<b>Gasolina</b>](https://open.spotify.com/track/228BxWXUYQPJrJYHDLOHkj?si=5b119d99a93d4deb) by Daddy Yankee  
+<iframe src="https://open.spotify.com/embed/track/228BxWXUYQPJrJYHDLOHkj" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2003: [<b>Dale Don Dale</b>](https://open.spotify.com/track/1PZrHbJjt5t7dP9OGRxcD0?si=3ab8fa13a37e4443) by Don Omar  
+<iframe src="https://open.spotify.com/embed/track/1PZrHbJjt5t7dP9OGRxcD0" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2002: [<b>Guatauba</b>](https://open.spotify.com/track/0xJFWROBNTBL4sKEuA5pm6?si=42b5de45244f411f) by Plan B  
+<iframe src="https://open.spotify.com/embed/track/0xJFWROBNTBL4sKEuA5pm6" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 2001: [<b>En La Cama</b>](https://open.spotify.com/track/2Eg6dOam7cAe5turf2bnCg?si=b318ebd3a8c943e7) by Nicky Jam and Daddy Yankee  
+<iframe src="https://open.spotify.com/embed/track/2Eg6dOam7cAe5turf2bnCg" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>  
 
 ### Visualizations
 
@@ -282,7 +362,7 @@ songs |>                    # Start with awards.
 #### Chromagram
 A chromagrom represents time versus pitch of the notes. These two chromagroms represent the energy content of the song "Atrevete-te-te" by Calle13 and the song "El Favor" by Nicky Jam. Calle13's song is from the early 2000s and Nicky Jam's song is a bit newer and is from 2019. These two are two outliers of both playlists, because it has not only elements of traditional reggeaton, but also of the genre salsa and R&B.
 <br>
-<br> In the code is a chroma vector is used, this is to represent the harmonic content of the music features. The norm that is used is for those graphs is the chebyshev norm, because it is less sensitive to the outliers than the other normalization vectors such as manhattan norm or euclidean norm. Therefore, it only takes the maximum difference between the similarities of elements in the song. The higher the magnitude of a chromagram, the higher the energy level of the song.
+<br> In the code is a chroma vector used, this is to represent the harmonic content of the music features. The norm that is used is for those graphs is the chebyshev norm, because it is less sensitive to the outliers than the other normalization vectors such as manhattan norm or euclidean norm. Therefore, it only takes the maximum difference between the similarities of elements in the song. The higher the magnitude of a chromagram, the higher the energy level of the song.
 <br>
 <br>
 
@@ -323,6 +403,43 @@ favor |>
   scale_fill_viridis_c() +
   ggtitle("Chromagram from the song: El Favor")
 ```
+
+#### Chroma-based and timbre-based
+The two matrices show the self-similarity of the famous hit song "Mi Gente" by J Balvin and Willy William, in terms of pitch and timbre. The matrices are summarized at bar level, with the x and y axes in seconds. Both matrices are important for understanding the structure of the song.  
+<br>
+The chroma matrix clearly shows the five times the chorus occurs, but it usually does not show the significant changes in texture during the three verses. 
+<br>
+The changes what you cannot easily see in a chroma matrix are more visible in a timbre matrix. It also shows the texture of the song. In this, you can see that it has a balanced song structure. The timbre has a climax that occurs about beginning halfway through the song and then only the chorus and beat that is repeated until the end of the song.
+
+
+```{r migente, echo=FALSE}
+bind_rows(
+  migente |> 
+    compmus_self_similarity(pitches, "aitchison") |> 
+    mutate(d = d / max(d), type = "Chroma"),
+  migente |> 
+    compmus_self_similarity(timbre, "euclidean") |> 
+    mutate(d = d / max(d), type = "Timbre")
+) |>
+  mutate() |> 
+  ggplot(
+    aes(
+      x = xstart + xduration / 2,
+      width = xduration,
+      y = ystart + yduration / 2,
+      height = yduration,
+      fill = d
+    )
+  ) +
+  geom_tile() +
+  coord_fixed() +
+  facet_wrap(~type) +
+  scale_fill_viridis_c(option = "E", guide = "none") +
+  theme_classic() + 
+  labs(x = "Time (s)", y = "Time (s)", fill = "Magnitude") +
+  ggtitle("Chroma vs. Timbre based for Mi Gente")
+```
+
 
 ### Conclusion / Discussion
 Text for Conclusion
