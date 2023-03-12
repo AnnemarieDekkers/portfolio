@@ -6,6 +6,7 @@ output:
   flexdashboard::flex_dashboard:
     storyboard: true
     orientation: columns
+    self_contained: false
     
 ---
 
@@ -189,6 +190,72 @@ For every year that I exist I collected one favorite song. As you can see on the
 #### Songs over the year
 2023: [<b>Shakira</b>](https://open.spotify.com/track/4nrPB8O7Y7wsOCJdgXkthe?si=79b6865208d448e1) by Shakira 
 <iframe src="https://open.spotify.com/embed/track/4nrPB8O7Y7wsOCJdgXkthe" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2022: [<b>La Jumpa</b>](https://open.spotify.com/track/5MxFWjuqQIsbNWbMdMdbli?si=e395dcaf431e4a93) by Bad Bunny and Arcangel  
+<iframe src="https://open.spotify.com/embed/track/5MxFWjuqQIsbNWbMdMdbli" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2021: [<b>Yonaguni</b>](https://open.spotify.com/track/2JPLbjOn0wPCngEot2STUS?si=9a0dfcbb279c4150) by Bad Bunny  
+<iframe src="https://open.spotify.com/embed/track/2JPLbjOn0wPCngEot2STUS" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2020: [<b>Safaera</b>](https://open.spotify.com/track/2DEZmgHKAvm41k4J3R2E9Y?si=be42e61c2bb94bc9) by Bad Bunny  
+<iframe src="https://open.spotify.com/embed/track/2DEZmgHKAvm41k4J3R2E9Y" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2019: [<b>Tusa</b>](https://open.spotify.com/track/7k4t7uLgtOxPwTpFmtJNTY?si=d22c191efde246cd) by Karol G and Nicki Minaj  
+<iframe src="https://open.spotify.com/embed/track/7k4t7uLgtOxPwTpFmtJNTY" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2018: [<b>X</b>](https://open.spotify.com/track/5YUyW9opqNsMSEzzecZih1?si=d6319b4a77424519) by Nicky Jam and J Balvin  
+<iframe src="https://open.spotify.com/embed/track/5YUyW9opqNsMSEzzecZih1" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2017: [<b>Mi gente</b>](https://open.spotify.com/track/03aENfSuuy3VS0sbgH7u1D?si=f99cda2305f443cc) by J Balvin and Willy William  
+<iframe src="https://open.spotify.com/embed/track/03aENfSuuy3VS0sbgH7u1D" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2016: [<b>Chantaje</b>](https://open.spotify.com/track/6mICuAdrwEjh6Y6lroV2Kg?si=f63c4ad717e54d67) by Shakira and Maluma  
+<iframe src="https://open.spotify.com/embed/track/6mICuAdrwEjh6Y6lroV2Kg" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2015: [<b>El Perdon</b>](https://open.spotify.com/track/7qCAVkHWZkF44OzOUKf8Cr?si=55296070f55b4375) by Nicky Jam and Enrique Iglesias  
+<iframe src="https://open.spotify.com/embed/track/7qCAVkHWZkF44OzOUKf8Cr" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2014: [<b>Bailando</b>](https://open.spotify.com/track/5M830cD7MNeiiwIGHzH9TV?si=6fe6d0234c874aa3) by Enrique Iglesias and Gente de Zona  
+<iframe src="https://open.spotify.com/embed/track/5M830cD7MNeiiwIGHzH9TV" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2013: [<b>6 AM</b>](https://open.spotify.com/track/3uvypVUsiIr1B0BccIcsEh?si=2d61229097074c65) by J Balvin and Farruko  
+<iframe src="https://open.spotify.com/embed/track/3uvypVUsiIr1B0BccIcsEh" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2012: [<b>Te pintaron pajaritos</b>](https://open.spotify.com/track/4jY5SnGbpH6FdGCqVbhOD4?si=c5040afccf3e4816) by Yandar and Yostin  
+<iframe src="https://open.spotify.com/embed/track/4jY5SnGbpH6FdGCqVbhOD4" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2011: [<b>Lovumba</b>](https://open.spotify.com/track/6oyl7ELfrMqXLhGmIjXY9R?si=e7e42e42c76e4ea4) by Daddy Yanke  
+<iframe src="https://open.spotify.com/embed/track/6oyl7ELfrMqXLhGmIjXY9R" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2010: [<b>Danza Kuduro</b>](https://open.spotify.com/track/6DXLO8LndZMVOHM0wNbpzg?si=32d59539e0a74683) by Don Omar and Lucenzo  
+<iframe src="https://open.spotify.com/embed/track/6DXLO8LndZMVOHM0wNbpzg" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2009: [<b>La Revolucion</b>](https://open.spotify.com/track/74Rj0CRTpwmr1n1HTjj3ly?si=48165ad824484643) by Wisin and Yandel  
+<iframe src="https://open.spotify.com/embed/track/74Rj0CRTpwmr1n1HTjj3ly" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2008: [<b>Perdóname</b>](https://open.spotify.com/track/1OYZbxODr6TMlaT2PRi6Wi?si=c4e420309f204642) by La Factoria and Eddy Lover  
+<iframe src="https://open.spotify.com/embed/track/1OYZbxODr6TMlaT2PRi6Wi" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2007: [<b>Un Poco Loca</b>](https://open.spotify.com/track/5A2fkyeIbRqwXGkIdadL5q?si=a1d16bef40ac4fee) by Jowell & Randy  
+<iframe src="https://open.spotify.com/embed/track/5A2fkyeIbRqwXGkIdadL5q" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2006: [<b>Noche De Entierro</b>](https://open.spotify.com/track/6ksWMnPcHNyNoNf3y1BQCO?si=9ddd882511cf467b) by Tonny Tun Tun and Daddy Yankee  
+<iframe src="https://open.spotify.com/embed/track/6ksWMnPcHNyNoNf3y1BQCO" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2005: [<b>Ella Y Yo</b>](https://open.spotify.com/track/6G4U9avyBNEfP0fAIduev3?si=781a2ea47be4468b) by Aventura and Don Omar  
+<iframe src="https://open.spotify.com/embed/track/6G4U9avyBNEfP0fAIduev3" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2004: [<b>Gasolina</b>](https://open.spotify.com/track/228BxWXUYQPJrJYHDLOHkj?si=5b119d99a93d4deb) by Daddy Yankee  
+<iframe src="https://open.spotify.com/embed/track/228BxWXUYQPJrJYHDLOHkj" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2003: [<b>Dale Don Dale</b>](https://open.spotify.com/track/1PZrHbJjt5t7dP9OGRxcD0?si=3ab8fa13a37e4443) by Don Omar  
+<iframe src="https://open.spotify.com/embed/track/1PZrHbJjt5t7dP9OGRxcD0" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2002: [<b>Guatauba</b>](https://open.spotify.com/track/0xJFWROBNTBL4sKEuA5pm6?si=42b5de45244f411f) by Plan B  
+<iframe src="https://open.spotify.com/embed/track/0xJFWROBNTBL4sKEuA5pm6" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+2001: [<b>En La Cama</b>](https://open.spotify.com/track/2Eg6dOam7cAe5turf2bnCg?si=b318ebd3a8c943e7) by Nicky Jam and Daddy Yankee  
+<iframe src="https://open.spotify.com/embed/track/2Eg6dOam7cAe5turf2bnCg" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 
 
