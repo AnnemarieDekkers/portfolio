@@ -1,11 +1,12 @@
 ---
 title: "Portfolio Computational Musicology"
 author: Annemarie Dekkers
-date: "2023-02-22"
+date: "February 2023"
 output: 
   flexdashboard::flex_dashboard:
     storyboard: true
     orientation: columns
+    
 ---
 
 ```{r setup, include=FALSE}
@@ -19,6 +20,8 @@ library(dplyr)
 library(ggplot2)
 library(compmus)
 library(flexdashboard)
+library(patchwork)
+library(plotly)
 
 ```
 
@@ -149,160 +152,108 @@ migente <-
   )
 ```
 
-### Week 9
-#### Chroma-based and timbre-based
-The two matrices show the self-similarity of the famous hit song "Mi Gente" by J Balvin and Willy William, in terms of pitch and timbre. The matrices are summarized at bar level, with the x and y axes in seconds. Both matrices are important for understanding the structure of the song.  
-<br>
-The chroma matrix clearly shows the five times the chorus occurs, but it usually does not show the significant changes in texture during the three verses. 
-<br>
-The changes what you cannot easily see in a chroma matrix are more visible in a timbre matrix. It also shows the texture of the song. In this, you can see that it has a balanced song structure. The timbre has a climax that occurs about beginning halfway through the song and then only the chorus and beat that is repeated until the end of the song.
 
-
-```{r migente1, echo=FALSE}
-bind_rows(
-  migente |> 
-    compmus_self_similarity(pitches, "aitchison") |> 
-    mutate(d = d / max(d), type = "Chroma"),
-  migente |> 
-    compmus_self_similarity(timbre, "euclidean") |> 
-    mutate(d = d / max(d), type = "Timbre")
-) |>
-  mutate() |> 
-  ggplot(
-    aes(
-      x = xstart + xduration / 2,
-      width = xduration,
-      y = ystart + yduration / 2,
-      height = yduration,
-      fill = d
-    )
-  ) +
-  geom_tile() +
-  coord_fixed() +
-  facet_wrap(~type) +
-  scale_fill_viridis_c(option = "E", guide = "none") +
-  theme_classic() + 
-  labs(x = "Time (s)", y = "Time (s)", fill = "Magnitude") +
-  ggtitle("Chroma vs. Timbre based for Mi Gente")
-```
-
-### Introduction
+### *Fascinating Exploration of Reggaeton Music over the Past Two Decades*
 <font style="font-size: 28px"><b>The evaluation of reggaeton music</b></font><br>
-The chosen corpus is a playlist with reggaeton music of the 2000s and a playlist of the reggaeton music of nowadays. This corpus was chosen because reggaeton is my favorite music genre, as soon as I hear the music all my nerves start dancing in my body. Also, if you compare how many Spanish songs were in the global top 50 playlist of the 2000s, it is very striking that it is much less than today.
-<br>
-<br>
-In the course of the nineties, the genre reggaeton has become very popular among the young people. in the early 21st century, this genre has also spread throughout the United States and a few years later it reached Europe and the rest of the world! One of the old famous songs that went viral Europa is 'Rakata from Wisin and Yandel, made in 2005. It is an interesting genre, because of the rhythm, danceability, lyrics and the cultural identity.
-<br>
-<br>
-The songs are most of the time made to dance, with a strong driving rhythm and a strong beat. The lyrics of the songs can be very catchy with a theme about crime, sex and love.
-<br>
-
-<font style="font-size: 20px"><b>Comparison</b></font><br>
-For the comparison points of the corpus is that the amount of artists has been greatly increased. And because this genre has become so big, many artists have started collaborating with artists from other backgrounds and other genres.
-<br>
-<br>
-I expect that the sound and product quality of the music have improved these days, but the danceability will remain the same. I think it is an important feature of the genre, because the purpose of the reggaeton music is to get the people to dance joyfully on it. What I am uncertain about is how this genre is going to evolve. Has it already reached its peak? Or is this the beginning of the peak?
-<br>
-<br>
-One of the most typical reggaeton songs from the past is "Gasolina" from Daddy Yankee and from now on is "La Jumpa" from Bad Bunny with Arcangel. It has both become a big hit and has a catchy beat and (especially Gasolina) easy lyrics to sing along to. In contrast to the old song "Atrévete-te-te" and "El Favor" from now. One has more elements of salsa and the other more R&B, which makes it a bit outside the traditional reggaeton. Also called an outlier.
+Welcome to the introduction page of my portfolio for Computational Musicology. In this portfolio I am going to try to answer the question: “How became reggaeton music so big nowadays in comparison with the 2000s? And how does it differ from then vs now?”
+  
+<font style="font-size: 18px"><b>Corpus</b></font><br>
+The chosen corpus for this portfolio includes two playlists. The first playlist contains reggaeton songs from the 2000s, while the second playlist also contains reggaeton songs but from nowadays (2022/2023).
+  
+<font style="font-size: 18px"><b>Why?</b></font><br>
+This corpus was chosen because reggaeton is my favorite music genre as soon as I hear the music all my nerves start to dance in my body. Also, if you compare how many Spanish songs were in the global top 50 playlist of the 2000s, it is very striking that it is much less than today.
+  
+<font style="font-size: 18px"><b>What is reggaeton?</b></font><br>
+So, in the late 1990s the genre reggaeton has become a very popular genre of Latin American music that originated in Puerto Rico. A lot of young people were listening to this genre.  
+  
+In the early 21st century, this genre has also spread throughout the United States and a few years later it reached Europe and the rest of the world! It has become a global phenomenon in recent years, with artists such as [Daddy Yankee](https://en.wikipedia.org/wiki/Daddy_Yankee) and now [J Balvin](https://en.wikipedia.org/wiki/J_Balvin) and [Bad Bunny](https://en.wikipedia.org/wiki/Bad_Bunny) who are leading the way. One of the old famous songs that went viral in Europe is ['Rakata'](https://open.spotify.com/track/1kQqiC1rS1FiuVpeBKN0QN?si=f3b2a70d2125482a) from Wisin and Yandel from 2005.  
+  
+It is an interesting genre, because of the rhythm, danceability, lyrics and the cultural identity. The songs are most of the time made to dance, with a strong driving rhythm and a strong beat. The lyrics of the songs can be very catchy with a theme about crime, sex and love.  
+  
+This genre has evolved significantly over the past two decades, so I expect to observe noticeable difference between the old and new playlists.  
+  
+<font style="font-size: 18px"><b>Comparison</b></font><br>
+There are several comparison points in this corpus. One of them is that the number of artists has been greatly increased. And because this genre has become so big, many artists have started collaborating with artists from other backgrounds and other genres.   
+  
+I expect that the sound and product quality of the music have improved these days, but the danceability will remain the same. I think it is an important feature of the genre because the purpose of the reggaeton music is to get the people to dance joyfully on it. What I am uncertain about is how this genre is going to evolve. Has it already reached its peak? Or is this the beginning of the peak?  
+  
+One of the most typical reggaeton songs from the past is ['Gasolina'](https://open.spotify.com/track/228BxWXUYQPJrJYHDLOHkj?si=9dc2a6bcf1ca40f5) from Daddy Yankee and from now on is ['La Jumpa'](https://open.spotify.com/track/5MxFWjuqQIsbNWbMdMdbli?si=e395dcaf431e4a93) from Bad Bunny with Arcangel. It has both become a big hit and has a catchy beat and (especially Gasolina) easy lyrics to sing along to. <br>
+In contrast to the old song ['Atrévete-te-te'](https://open.spotify.com/track/1q8NdCAQ9QUjpYiqzdd3mv?si=dc22539629724208) from Calle13 (2005) and from now ['El Favor'](https://open.spotify.com/track/684EjRHwNsZQ9hCQxL4NYL?si=8a14f7e12d624027) from Nicky Jam (2019). The song of Calle13 has more elements of the genre salsa and the song of Nicky Jam has more elements from the genre R&B, which makes it a bit outside the traditional reggaeton genre. We also called those an outlier. 
+  
+For every year that I exist I collected one favorite song. As you can see on the right of this page.  
+  
+<font style="font-size: 28px"><b>¡Qué te diviertas escuchando esta canciones!</b></font><br>
 
 ---
 
-#### Songs
-For every year I collected one favorite song.<br>
+#### Songs over the year
 2023: [<b>Shakira</b>](https://open.spotify.com/track/4nrPB8O7Y7wsOCJdgXkthe?si=79b6865208d448e1) by Shakira 
 <iframe src="https://open.spotify.com/embed/track/4nrPB8O7Y7wsOCJdgXkthe" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
-2022: [<b>La Jumpa</b>](https://open.spotify.com/track/5MxFWjuqQIsbNWbMdMdbli?si=e395dcaf431e4a93) by Bad Bunny and Arcangel  
-<iframe src="https://open.spotify.com/embed/track/5MxFWjuqQIsbNWbMdMdbli" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
-2021: [<b>Yonaguni</b>](https://open.spotify.com/track/2JPLbjOn0wPCngEot2STUS?si=9a0dfcbb279c4150) by Bad Bunny  
-<iframe src="https://open.spotify.com/embed/track/2JPLbjOn0wPCngEot2STUS" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
-2020: [<b>Safaera</b>](https://open.spotify.com/track/2DEZmgHKAvm41k4J3R2E9Y?si=be42e61c2bb94bc9) by Bad Bunny  
-<iframe src="https://open.spotify.com/embed/track/2DEZmgHKAvm41k4J3R2E9Y" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+### *Does the Music of Today Have More Energy Than in the Past?* {data-commentary-width=600}
 
-2019: [<b>Tusa</b>](https://open.spotify.com/track/7k4t7uLgtOxPwTpFmtJNTY?si=d22c191efde246cd) by Karol G and Nicki Minaj  
-<iframe src="https://open.spotify.com/embed/track/7k4t7uLgtOxPwTpFmtJNTY" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+```{r, echo=FALSE}
+# audio si tu le vas + gasolina for the energy level
+# didn't got the feature 'energy' in track_audio so made a playlist only for 1 song
+si_tu <- get_playlist_audio_features("", "1ndRqWs5hICOL9Ebp21h5W?si=01fe683667b64606")
+gas <- get_playlist_audio_features("", "1bWeEBhBtF51F5TW1k0kYV?si=f583f2c0125249a0")
 
-2018: [<b>X</b>](https://open.spotify.com/track/5YUyW9opqNsMSEzzecZih1?si=d6319b4a77424519) by Nicky Jam and J Balvin  
-<iframe src="https://open.spotify.com/embed/track/5YUyW9opqNsMSEzzecZih1" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-2017: [<b>Mi gente</b>](https://open.spotify.com/track/03aENfSuuy3VS0sbgH7u1D?si=f99cda2305f443cc) by J Balvin and Willy William  
-<iframe src="https://open.spotify.com/embed/track/03aENfSuuy3VS0sbgH7u1D" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-2016: [<b>Chantaje</b>](https://open.spotify.com/track/6mICuAdrwEjh6Y6lroV2Kg?si=f63c4ad717e54d67) by Shakira and Maluma  
-<iframe src="https://open.spotify.com/embed/track/6mICuAdrwEjh6Y6lroV2Kg" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-2015: [<b>El Perdon</b>](https://open.spotify.com/track/7qCAVkHWZkF44OzOUKf8Cr?si=55296070f55b4375) by Nicky Jam and Enrique Iglesias  
-<iframe src="https://open.spotify.com/embed/track/7qCAVkHWZkF44OzOUKf8Cr" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-2014: [<b>Bailando</b>](https://open.spotify.com/track/5M830cD7MNeiiwIGHzH9TV?si=6fe6d0234c874aa3) by Enrique Iglesias and Gente de Zona  
-<iframe src="https://open.spotify.com/embed/track/5M830cD7MNeiiwIGHzH9TV" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-2013: [<b>6 AM</b>](https://open.spotify.com/track/3uvypVUsiIr1B0BccIcsEh?si=2d61229097074c65) by J Balvin and Farruko  
-<iframe src="https://open.spotify.com/embed/track/3uvypVUsiIr1B0BccIcsEh" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-2012: [<b>Te pintaron pajaritos</b>](https://open.spotify.com/track/4jY5SnGbpH6FdGCqVbhOD4?si=c5040afccf3e4816) by Yandar and Yostin  
-<iframe src="https://open.spotify.com/embed/track/4jY5SnGbpH6FdGCqVbhOD4" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-2011: [<b>Lovumba</b>](https://open.spotify.com/track/6oyl7ELfrMqXLhGmIjXY9R?si=e7e42e42c76e4ea4) by Daddy Yanke  
-<iframe src="https://open.spotify.com/embed/track/6oyl7ELfrMqXLhGmIjXY9R" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-2010: [<b>Danza Kuduro</b>](https://open.spotify.com/track/6DXLO8LndZMVOHM0wNbpzg?si=32d59539e0a74683) by Don Omar and Lucenzo  
-<iframe src="https://open.spotify.com/embed/track/6DXLO8LndZMVOHM0wNbpzg" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-2009: [<b>La Revolucion</b>](https://open.spotify.com/track/74Rj0CRTpwmr1n1HTjj3ly?si=48165ad824484643) by Wisin and Yandel  
-<iframe src="https://open.spotify.com/embed/track/74Rj0CRTpwmr1n1HTjj3ly" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-2008: [<b>Perdóname</b>](https://open.spotify.com/track/1OYZbxODr6TMlaT2PRi6Wi?si=c4e420309f204642) by La Factoria and Eddy Lover  
-<iframe src="https://open.spotify.com/embed/track/1OYZbxODr6TMlaT2PRi6Wi" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-2007: [<b>Un Poco Loca</b>](https://open.spotify.com/track/5A2fkyeIbRqwXGkIdadL5q?si=a1d16bef40ac4fee) by Jowell & Randy  
-<iframe src="https://open.spotify.com/embed/track/5A2fkyeIbRqwXGkIdadL5q" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-2006: [<b>Noche De Entierro</b>](https://open.spotify.com/track/6ksWMnPcHNyNoNf3y1BQCO?si=9ddd882511cf467b) by Tonny Tun Tun and Daddy Yankee  
-<iframe src="https://open.spotify.com/embed/track/6ksWMnPcHNyNoNf3y1BQCO" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-2005: [<b>Ella Y Yo</b>](https://open.spotify.com/track/6G4U9avyBNEfP0fAIduev3?si=781a2ea47be4468b) by Aventura and Don Omar  
-<iframe src="https://open.spotify.com/embed/track/6G4U9avyBNEfP0fAIduev3" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-2004: [<b>Gasolina</b>](https://open.spotify.com/track/228BxWXUYQPJrJYHDLOHkj?si=5b119d99a93d4deb) by Daddy Yankee  
-<iframe src="https://open.spotify.com/embed/track/228BxWXUYQPJrJYHDLOHkj" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-2003: [<b>Dale Don Dale</b>](https://open.spotify.com/track/1PZrHbJjt5t7dP9OGRxcD0?si=3ab8fa13a37e4443) by Don Omar  
-<iframe src="https://open.spotify.com/embed/track/1PZrHbJjt5t7dP9OGRxcD0" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-2002: [<b>Guatauba</b>](https://open.spotify.com/track/0xJFWROBNTBL4sKEuA5pm6?si=42b5de45244f411f) by Plan B  
-<iframe src="https://open.spotify.com/embed/track/0xJFWROBNTBL4sKEuA5pm6" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-2001: [<b>En La Cama</b>](https://open.spotify.com/track/2Eg6dOam7cAe5turf2bnCg?si=b318ebd3a8c943e7) by Nicky Jam and Daddy Yankee  
-<iframe src="https://open.spotify.com/embed/track/2Eg6dOam7cAe5turf2bnCg" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>  
-
-### Visualizations
-
-#### plot 1
-So for the corpus are two different playlists used. One playlist is from music from the 2000s and the other playlist is from the music of today (2023).
-<br>
-<br>
-Figure 1 shows two bar plots, comparing how the energy of the songs in the playlists differ from each other. Energy is a measure from 0.0 to 1.0 and provides a perceptual measure of intensity and activity. Energetic numbers are fast and loud. While low-energy songs are slow and peaceful.
-
-```{r plot1, echo=FALSE}
+# combine data sets with labeling variable.
+examples <-
+  bind_rows(
+    si_tu |> mutate(category = "Si Tú La Ves"),
+    gas |> mutate(category = "Gasolina")
+  )
 # bar plots to compare a continuous variable (energy) across categories
-songs |>
+plot1 <- examples |> 
+  ggplot(aes(x = energy)) +
+  geom_histogram(binwidth = 0.1, fill="steelblue") +
+  facet_wrap(~category) +
+  ggtitle("Compare the energy of the two examples")
+
+
+# bar plots to compare a continuous variable (energy) across categories
+plot2 <- songs |>
   ggplot(aes(x = energy)) +
   geom_histogram(binwidth = 0.1, fill="steelblue") +
   facet_wrap(~category) +
   ggtitle("Compare the energy of both playlists")
+
+# stack plots horizontally under each other
+plot1 + plot2 + plot_layout(nrow = 2)
 ```
 
-#### plot 2
-Figure 2 shows two graphs, looking at the correlation between energy and valence of the songs in the playlist. The energy refers to the perceived intensity of a piece of music. A high energy stimulates to move and dance.
-<br>
-While the valence refers to the emotional quality of the music, this is also a measure from 0.0 to 1.0. A high valence is associated with positive feelings like happiness and a low valence is associated with more negative feelings like anger. As seen in the figure, the energy is very high in both years, but the valence nowadays is more spread from low to high. This may be because the music industry wants to make more statements with their songs. Because with music, artists achieve a lot of audience attention, which allows them to express their social/political issues.
+***
+<font style="font-size: 28px"><b>Music now has more energy than in the past years?</b></font><br>
+So, for the corpus there are two different playlists used. As I already told in the introduction page; one from reggaeton songs from the 2000s and the other playlist with songs from the music of now a day.  
+  
+For each track out of the playlist, we get the audio features. In this visualization I will compare the energy distribution of those two playlists, in two separate histograms one for each playlist. So, we can see clearly how the energy of the songs in the playlists differ from each other.  
+  
+<font style="font-size: 18px"><b>What is energy?</b></font><br>
+The energy values are measure from 0.0 to 1.0 and provides a perceptual measure of intensity and activity. What can we say about the energy? A high energetic number is fast and loud, while low-energy songs are slow and peaceful.  
+  
+Before looking at the visualization, we can already say that reggaeton songs are generally known for their high-energy level, fast tempo, heavy beats, and considerable use of bass and percussion instruments. This energetic sound is also often accompanied by catchy lyrics, making reggaeton music popular for partying and dancing.  
+  
+Of course, the energy level of the music can vary between individual songs and artists/bands. But in general, this genre is associated with a high-energy level music.  
+
+<font style="font-size: 18px"><b>Some examples</b></font><br>
+Examples of the low- and high-energy level songs. See the first graph.  
+  
+A song for a high energic level it is the song [‘Gasolina’](https://open.spotify.com/track/228BxWXUYQPJrJYHDLOHkj?si=8fe1d51eea584c39) from Daddy Yankee. This song is widely regarded as one of the most iconic reggaeton songs of all time, with a high tempo, a strong beat and a catchy touch. The lyrics are upbeat and festive, with a big emphasis on partying and dancing.  
+  
+For the low-energy level song I will say the song [‘Si Tú La Ves’](https://open.spotify.com/track/4yN6xPLopmTLvc27pO9LIE?si=0d870ea7407646a0) from Nicky Jam and Wisin. This song has a slower tempo, and the beat is more relaxed, compared to other reggaeton songs. As you can see in the graph the energy level is between 0.65 and 0.75. This says that it is not too low, but it is not too high either. It falls somewhere in the middle of the energy spectrum.  
+
+<font style="font-size: 18px"><b>The results</b></font><br>
+As we can see from the second graph there is a noticeable difference in the energy distribution between those two playlists. The playlists that contain songs from 2023 (right) has a higher concentration of songs with high-energy level, while the playlist containing songs from 2000 has a more evenly distributed energy value.  
+  
+However, we can not make any conclusions about the evolution of reggaeton music from only this visualization.  
 
 
-```{r plot2, echo=FALSE}
+### *Exploring the Correlation Between Energy and Valence in Reggaeton Music: A Decade-wise Comparison.* {data-commentary-width=600}
+
+```{r plot21, echo=FALSE}
 # scatter plot to compare valence vs energy.
 songs |>                    # Start with awards.
   mutate(
@@ -355,17 +306,43 @@ songs |>                    # Start with awards.
     colour = "Mode"
   ) +
   ggtitle("Compare the valence vs the energy of the playlists")
-
 ```
 
-#### Chromagram
-A chromagrom represents time versus pitch of the notes. These two chromagroms represent the energy content of the song "Atrevete-te-te" by Calle13 and the song "El Favor" by Nicky Jam. Calle13's song is from the early 2000s and Nicky Jam's song is a bit newer and is from 2019. These two are two outliers of both playlists, because it has not only elements of traditional reggeaton, but also of the genre salsa and R&B.
-<br>
-<br> In the code is a chroma vector used, this is to represent the harmonic content of the music features. The norm that is used is for those graphs is the chebyshev norm, because it is less sensitive to the outliers than the other normalization vectors such as manhattan norm or euclidean norm. Therefore, it only takes the maximum difference between the similarities of elements in the song. The higher the magnitude of a chromagram, the higher the energy level of the song.
-<br>
-<br>
+***
+<font style="font-size: 28px"><b>The correlation between energy and valence over time</b></font><br>
+Comparing the valence and energy of reggaeton
+In this visualization, the relationship between the valence and the energy of the two reggaeton playlists will be explored. Here again one playlist with the reggaeton songs from 2000 and the other playlist with the reggaeton songs from 2023.  
+  
+<font style="font-size: 18px"><b>What is valence?</b></font><br>
+Valence is a measure of the musical positivity of a song. In other words, the valence refers to the emotional quality of the music. This is measure from 0.0 to 1.0.  
+  
+So a high valence is associated with positive feelings like happiness. An example reggaeton song is [‘Dura’]( https://open.spotify.com/track/6KuqAtoeVzxAYOaMveLNpH?si=059ac68d304e48bf) from Daddy Yankee with a very high valence; 0.961. And a low valence is associated with more negative feelings like anger. An example reggaeton song is [‘Te Boté’](https://open.spotify.com/track/42FWqCxAw5aG1FvjyVjIlH?si=839fd744277940e9) from Darell with a valence of 0.269.
 
-``` {r chroma old, fig.show="hold", out.width="50%", echo=FALSE}
+<font style="font-size: 18px"><b>What is energy?</b></font><br>
+The energy represents a perceptual measure of intensity and activity. As already said, the energy refers to the perceived intensity of a piece of music. A high energy stimulates to move and dance.
+  
+<font style="font-size: 18px"><b>Correlation</b></font><br>
+Showing a correlation between the valence and energy of the two playlists from 2000 and 2023 is useful for evaluating the evolution of the reggaeton genre. It gives good insights about how the music has changed over time. By comparing these two variables, it is possible to examine whether the music has become more or less upbeat and positive over time. With this, conclusions can be drawn about the evolution of the reggaeton genre. Such as whether it has become more or less appealing to listen to.
+
+<font style="font-size: 18px"><b>The results</b></font><br>
+This figure shows two graphs. Looking at the correlation between the chosen variables, valence, and energy, of the songs in the two playlists. Each point in the plot represents a song, and the size of the point represents the loudness of the song. The points are represented by colors based on whether the song is in a "major" or a "minor" key.  
+  
+As expected, there is a positive correlation between the two variables, indicating that songs with higher valence tend to have a higher energy level as well.  
+  
+Most of the songs from the 2000 playlist, have a low valence and energy level, and the points are mostly clustered in the bottom left corner of the graph. This indicates that the songs from the year 2000 had a slower and less energetic feel.  
+  
+On the other hand, the graph representing the latest hits from 2023 shows that they clearly have higher valence and energy levels, than the songs from 2000, with points being more spread out across the graph. This indicates that today’s reggaeton music has a more upbeat and energetic feel.  
+  
+It also appears that songs in major mode are more prevalent in both playlists.  
+  
+The visualization tells a clear story about the comparison of valence and energy in reggaeton music from 2000 till now. It suggests that the genre has become more upbeat and intense over time. But that in turn raises the questions; why this change is catching on with listeners?  
+
+<font style="font-size: 18px"><b>Possible reasons</b></font><br>
+A possible reason why the conclusion is more catching on with the listeners, may be because the music industry wants to make more statements with their songs. With music, artists achieve a lot of audience attention, which allows them to express their social/political issues. They use the platform to bring important issues to attention and thereby encourage listeners to take action with certain political issues.
+
+### *Visualize the Pitch Distribution from the Outliers of the Reggaeton Genre* {data-commentary-width=600}
+
+```{r chroma old1, fig.show="hold", out.width="50%", echo=FALSE}
 # plot of atrevete
 atre |>
   mutate(pitches = map(pitches, compmus_normalise, "chebyshev")) |>
@@ -403,15 +380,34 @@ favor |>
   ggtitle("Chromagram from the song: El Favor")
 ```
 
-#### Chroma-based and timbre-based
-The two matrices show the self-similarity of the famous hit song "Mi Gente" by J Balvin and Willy William, in terms of pitch and timbre. The matrices are summarized at bar level, with the x and y axes in seconds. Both matrices are important for understanding the structure of the song.  
-<br>
-The chroma matrix clearly shows the five times the chorus occurs, but it usually does not show the significant changes in texture during the three verses. 
-<br>
-The changes what you cannot easily see in a chroma matrix are more visible in a timbre matrix. It also shows the texture of the song. In this, you can see that it has a balanced song structure. The timbre has a climax that occurs about beginning halfway through the song and then only the chorus and beat that is repeated until the end of the song.
+***
+<font style="font-size: 28px"><b>The distribution from the outliers</b></font><br> 
+The chromagrams represent the two outliers. ['El Favor'](https://open.spotify.com/track/684EjRHwNsZQ9hCQxL4NYL?si=8a14f7e12d624027) from the 2023 playlist and ['Atrévete-te-te'](https://open.spotify.com/track/1q8NdCAQ9QUjpYiqzdd3mv?si=dc22539629724208)  from the 2000 playlist. These are two outliers of both playlists, because it has not only elements of traditional reggaeton, but also of the genre salsa and R&B.  
+
+<font style="font-size: 18px"><b>What is a chromagram?</b></font><br> 
+A chromagram is a way to visualize the distribution of musical notes across the frequency spectrum. It is a representation of the frequency of a piece of music over time. It shows the distribution of pitch classes in the audio signal.  
+  
+The musical spectrum is divided into 12 equal semitones, corresponding to the 12 notes in an octave. Each note is represented by a different color, and the height of each color band represents the relative amplitude or strength of each note in the music.
+
+<font style="font-size: 18px"><b>Choose of norm</b></font><br> 
+In the code is a chroma vector used, this is to represent the harmonic content of the music features. The norm that is used is for those graphs is the *chebyshev norm*, because it is less sensitive to the outliers than the other normalization vectors such as *manhattan norm* or *euclidean norm*. Therefore, it only takes the maximum difference between the similarities of elements in the song. The higher the magnitude of a chromagram, the higher the energy level of the song.
+
+<font style="font-size: 18px"><b>Comparison</b></font><br> 
+Looking at the chromagrams of the two songs, we see that the two songs have very different pitch distributions.  
+  
+In ‘El Favor’, there is a lot of activity in the chromagram, in many different pitch classes. This means that it has a more even distribution of pitch classes, with a relatively even spread across all 12 pitch classes. It indicates that there are many different instruments and notes being played simultaneously. This makes sense, as it is typical of reggaeton music to have a wide range of instruments, all of which contribute to the complex sound of the music.  
+  
+In contrast, "Atrévete-te-te" has a more focused pitch distribution, with a strong emphasis on certain pitch classes, such as tone C and G, and a relative lack of other pitch classes, such as tone A and B). This is probably because the song contains a relatively small ensemble of instruments, so the instruments used create a more focused and coherent sound.
+
+<font style="font-size: 18px"><b>The results</b></font><br> 
+The reason these chromagrams look "all over the place" is because the chromagrams reflect the complexity of the music and the variety of instruments used in the songs. Reggaeton music often uses a variety of instruments with different frequency ranges, such as heavy bass synthesizers.  
+  
+In addition, many reggaeton songs contain vocals with a strong rhythmic emphasis, which can also affect the pitch distribution. These factors may contribute to the varied pitch distribution seen in the chromagrams.
 
 
-```{r migente, echo=FALSE}
+### *Chroma and Timbre-based Approaches Help Identify the Signature Sound of Reggaeton?* {data-commentary-width=600}
+
+```{r migente1, echo=FALSE}
 bind_rows(
   migente |> 
     compmus_self_similarity(pitches, "aitchison") |> 
@@ -438,6 +434,199 @@ bind_rows(
   labs(x = "Time (s)", y = "Time (s)", fill = "Magnitude") +
   ggtitle("Chroma vs. Timbre based for Mi Gente")
 ```
+
+***
+<font style="font-size: 28px"><b>Chroma and Timbre-based identifying the sound of reggaeton</b></font><br> 
+This visualization is a comparison between the chroma-based and timbre-based self-similarity matrix for the famous hit song [‘Mi Gente’](https://open.spotify.com/track/03aENfSuuy3VS0sbgH7u1D?si=464d10126537421e) by J Balvin and Willy William. This song was chosen because I feel it is easy to use for the self-similarity matrices. This is because it has a relatively consistent structure and instrumentation throughout the song. It has a fixed beat, repeated melodic patterns, making them well suited for self-similarity analysis.  
+Both matrices are important for understanding the structure of the song.  
+
+
+<font style="font-size: 18px"><b>What is it?</b></font><br>
+A self-similarity matrix is a representation of the similarity of an audio signal with itself over time. The matrix is symmetrical along the diagonal, and each element represents the similarity between two segments of the signal.
+
+<font style="font-size: 18px"><b>Chroma-based</b></font><br>
+A chroma-based self-similarity matrix measures the similarity between the pitch classes of different segments of the signal. The pitch classes refer to the twelve distinct pitches, repeated in higher or lower octaves, in the Western music system.  
+  
+The chroma-based self-similarity matrix in this visualization is based on the chroma features of the song. These features represent the presence and intensity of each musical pitch class in a segment of the signal.
+
+<font style="font-size: 18px"><b>Timbre-based</b></font><br>
+A timbre-based self-similarity matrix measures the similarity between the spectral features of different segments of the signal. This can be used to distinguish between different instruments or different voices.  
+  
+The timbre-based self-similarity matrix in this visualization is based on the timbre features of the song. These features represent the timbre and texture of the sound.
+
+<font style="font-size: 18px"><b>The results</b></font><br>
+Each tile corresponds to the degree of similarity between the segments of the signal. The brighter the color, the higher the similarity.  
+  
+The visualization shows that the structure of the chroma matrix is more orderly than that of the timbre matrix. The chroma matrix shows a clear diagonal pattern the five times the refrain occurs. This indicates that segments with similar pitches are close together. Only it usually does not show the significant changes in texture during the three stanzas.  
+  
+In contrast, the timbre matrix has a slightly more complex pattern, with no obvious diagonal and with multiple clusters of like segments. This suggests that the timbre of the song changes more frequently and unpredictably than the pitch classes. Only, the changes that you can't see as well in a chroma matrix are better seen in a timbre matrix. The timbre has a climax that starts about halfway through the song and then just the chorus and beat repeated until the end of the song.
+
+### *What can a Chordogram Reveal About the Harmonies?* {data-commentary-width=600}
+```{r, echo=FALSE}
+circshift <- function(v, n) {
+  if (n == 0) v else c(tail(v, n), head(v, -n))
+}
+#      C     C#    D     Eb    E     F     F#    G     Ab    A     Bb    B
+major_chord <-
+  c(   1,    0,    0,    0,    1,    0,    0,    1,    0,    0,    0,    0)
+minor_chord <-
+  c(   1,    0,    0,    1,    0,    0,    0,    1,    0,    0,    0,    0)
+seventh_chord <-
+  c(   1,    0,    0,    0,    1,    0,    0,    1,    0,    0,    1,    0)
+chord_templates <-
+  tribble(
+    ~name, ~template,
+    "Gb:7", circshift(seventh_chord, 6),
+    "Gb:maj", circshift(major_chord, 6),
+    "Bb:min", circshift(minor_chord, 10),
+    "Db:maj", circshift(major_chord, 1),
+    "F:min", circshift(minor_chord, 5),
+    "Ab:7", circshift(seventh_chord, 8),
+    "Ab:maj", circshift(major_chord, 8),
+    "C:min", circshift(minor_chord, 0),
+    "Eb:7", circshift(seventh_chord, 3),
+    "Eb:maj", circshift(major_chord, 3),
+    "G:min", circshift(minor_chord, 7),
+    "Bb:7", circshift(seventh_chord, 10),
+    "Bb:maj", circshift(major_chord, 10),
+    "D:min", circshift(minor_chord, 2),
+    "F:7", circshift(seventh_chord, 5),
+    "F:maj", circshift(major_chord, 5),
+    "A:min", circshift(minor_chord, 9),
+    "C:7", circshift(seventh_chord, 0),
+    "C:maj", circshift(major_chord, 0),
+    "E:min", circshift(minor_chord, 4),
+    "G:7", circshift(seventh_chord, 7),
+    "G:maj", circshift(major_chord, 7),
+    "B:min", circshift(minor_chord, 11),
+    "D:7", circshift(seventh_chord, 2),
+    "D:maj", circshift(major_chord, 2),
+    "F#:min", circshift(minor_chord, 6),
+    "A:7", circshift(seventh_chord, 9),
+    "A:maj", circshift(major_chord, 9),
+    "C#:min", circshift(minor_chord, 1),
+    "E:7", circshift(seventh_chord, 4),
+    "E:maj", circshift(major_chord, 4),
+    "G#:min", circshift(minor_chord, 8),
+    "B:7", circshift(seventh_chord, 11),
+    "B:maj", circshift(major_chord, 11),
+    "D#:min", circshift(minor_chord, 3)
+  )
+
+# the song Gasolina + plot
+get_tidy_audio_analysis("2NKRbRdRIcaGCXTq7xEpWV?si=fef3979c2c4943d4") |>
+  compmus_align(bars, segments) |>
+  select(bars) |>
+  unnest(bars) |>
+  mutate(
+    pitches =
+      map(segments,
+        compmus_summarise, pitches,
+        method = "mean", norm = "manhattan"
+      )
+  ) |> 
+  compmus_match_pitch_template(chord_templates, "euclidean", "manhattan") |>
+  ggplot(
+    aes(x = start + duration / 2, width = duration, y = name, fill = d)
+  ) +
+  geom_tile() +
+  scale_fill_viridis_c(guide = "none") +
+  theme_minimal() +
+  labs(x = "Time (s)", y = "")
+```
+
+***
+<font style="font-size: 28px"><b>The chordogram and his harmonies</b></font><br>
+The visualization on the left shows the chordogram of the song [‘Pam Pam’]( https://open.spotify.com/track/2NKRbRdRIcaGCXTq7xEpWV?si=e8728674abc54e4a) by Wisin & Yandel from 2008.
+
+<font style="font-size: 18px"><b>What is it?</b></font><br>
+A chordogram is a visualization that provides a representation of the chords used in a piece of music, with each chord represented by a colored bar that spans a certain amount of time. This visualization analyzes the song "Pam Pam", using pitch templates to identify the chords played in each segment of the song. The resulting chordogram shows the identified chords with colored bars that change over time. The colors are chosen to represent different chord qualities.  
+  
+The chordogram reflects the harmonies of the song's chord progression well. The different colors show the different chords played in each segment. The pattern of the bars changes as the song progresses, showing the altered chord progression.
+
+<font style="font-size: 18px"><b>The results</b></font><br>
+The chords used in the song include G minor, C minor, F major, and B flat major, among others.  
+  
+There are a few ambiguities in the chord diagram, especially in the section when multiple chords are played at the same time. In these cases, the colors of the bars overlap, making it difficult to distinguish the individual chords being played at the time.  
+  
+The pattern in the chordogram changes as soon as the chords in the song change. The colors and shapes of the blocks correspond to the specific chords being played at each moment. So longer bars, represent longer chords. We can see that the chords change frequently throughout the song. This suggests that the song has a lot of harmonic movement, which can add interest and tension to the music.
+
+### *Reggaeton Through the Decades: Are They Related to Tempo Variation?* {data-commentary-width=600}
+
+```{r, echo=FALSE}
+now_pl <-
+  get_playlist_audio_features(
+    "thesoundsofspotify",
+    "0a1qCaoC6Zw4Ni5eV1PReR?si=e57ef18872744fde"
+  ) |>
+  slice(1:30) |>
+  add_audio_analysis()
+then_pl <-
+  get_playlist_audio_features(
+    "thesoundsofspotify",
+    "37i9dQZF1DXawmJ5HnBNtX?si=00449bb1fdce4780"
+  ) |>
+  slice(1:30) |>
+  add_audio_analysis()
+
+reggae <-
+  now_pl |>
+  mutate(genre = "Now") |>
+  bind_rows(then_pl |> mutate(genre = "Then"))
+
+reggae |>
+  mutate(
+    sections =
+      map(
+        sections,                                    # sections or segments
+        summarise_at,
+        vars(tempo, loudness, duration),             # features of interest
+        list(section_mean = mean, section_sd = sd)   # aggregation functions
+      )
+  ) |>
+  unnest(sections) |>
+  ggplot(
+    aes(
+      x = tempo,
+      y = tempo_section_sd,
+      colour = genre,
+      alpha = loudness
+    )
+  ) +
+  geom_point(aes(size = duration / 60)) +
+  geom_rug() +
+  theme_minimal() +
+  ylim(0, 5) +
+  labs(
+    x = "Mean Tempo (bpm)",
+    y = "SD Tempo",
+    colour = "Genre",
+    size = "Duration (min)",
+    alpha = "Volume (dBFS)"
+  )
+```
+
+***
+<font style="font-size: 28px"><b>Related tempo variation</b></font><br>
+In this visualization we are going to consider the difference between Spotify’s ‘Sound of’ playlists for the corpus, so the playlist from 2000s versus the playlist of 2023. After loading the playlists, we can use a helper function to fetch the low-level features for every track. But an adding audio analysis for every track is a slow operation, so for the purposes we will limit each playlists to 30 tracks.  
+  
+The code calculates the mean and standard deviation of the three features: tempo, loudness and duration for each segment of the songs from the corpus. The resulting visualization is the relationship between the mean tempo and the standard deviation of tempo for each song segment, with the color and transparency of points that indicate the time period of the song. And the size of every point represents the duration of the segment of the song.
+
+<font style="font-size: 18px"><b>Standard deviation</b></font><br>
+If the standard deviation is high for a set of reggaeton songs, it means that there is a large spread in the values of that feature across the songs. The songs show a high degree of variability for that feature. If the standard deviation is low, it means that the values for that feature are more consistent or the same across the songs.  
+  
+So if we look at the feature tempo. If the standard deviation of the tempo of a set of reggaeton songs is high, then it means that there is a wide range of tempos in the songs. Some songs are slower and the others are faster. If the standard deviation of the tempo is low, then it means that the tempos of the songs are all about the same.
+
+<font style="font-size: 18px"><b>The results</b></font><br>
+The visualization shows that there is a relatively weak positive relationship between the mean tempo and standard deviation of tempo for reggaeton songs.  
+  
+Songs with higher mean tempo tend to have slightly higher standard deviation of tempo, but this correlation is not very strong. The visualization also suggests that reggaeton songs from the present day tend to have a slightly higher mean tempo and slightly higher standard deviation of tempo compared to those from the 2000s. Additionally, the size of the points in the visualization suggests that longer song segments tend to have higher variability in tempo.
+
+<font style="font-size: 18px"><b>Possible reasons</b></font><br>
+Possible reasons for the observed correlations in this visualization. It could be that the weak positive correlation between the mean and standard deviation may indicate a tendency for songs with a faster tempo to have more varied rhythms and instrumentation. This may contribute to greater variability in tempo.  
+  
+The observed differences between reggaeton songs of the two different periods may reflect broader trends in music production. So with that, one can think of differences in technologies and today we can have much more equipment at our disposal for music production.
+
 
 
 ### Conclusion / Discussion
