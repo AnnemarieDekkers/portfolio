@@ -599,7 +599,8 @@ get_tidy_audio_analysis("2NKRbRdRIcaGCXTq7xEpWV?si=fef3979c2c4943d4") |>
   geom_tile() +
   scale_fill_viridis_c(guide = "none") +
   theme_minimal() +
-  labs(x = "Time (s)", y = "")
+  labs(x = "Time (s)", y = "") +
+  ggtitle("Chordogram from the song: Gasolina by Daddy Yankee")
 ```
 
 ***
